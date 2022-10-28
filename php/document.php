@@ -21,7 +21,7 @@ if ($_POST['id'] == "insert") {
 
 if ($_POST['id'] == "show") {
 
-    $output = null;
+    $output = "";
 
     $query = "SELECT * FROM document ORDER by id";
 

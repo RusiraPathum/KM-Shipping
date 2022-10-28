@@ -23,48 +23,66 @@ $('#save_agenda').click(function( ){
 
     let data;
 
-    var ageName = $('#ageName').val();
-    var ageCategory = $('#ageCategory').val();
-    var ageDes = $('#ageDes').val();
-    var ageType = $('#ageType').val();
+    var ageTitle = $('#ageTitle').val();
+    var ageHostName = $('#ageHostName').val();
+    var ageDateTime = $('#ageDateTime').val();
+    var ageLoc = $('#ageLoc').val();
+    var ageShortDes = $('#ageShortDes').val();
+    var ageLongDes = $('#ageLongDes').val();
     var id = "insert";
 
-    if (ageName == ""){
+    if (ageTitle == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Agenda Name!',
+            text: 'Please Fill The Agenda Title!',
         });
-    }else if (ageCategory == ""){
+    }else if (ageHostName == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Agenda Category!',
+            text: 'Please Fill The Agenda Host Name!',
         });
-    }else if (ageDes == ""){
+    }else if (ageDateTime == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Agenda Description!',
+            text: 'Please Select The Agenda Date and Time!',
         });
-    }else if (ageType == ""){
+    }else if (ageLoc == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Agenda Type!',
+            text: 'Please Fill The Agenda Location!',
+        });
+    }else if (ageShortDes == ""){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please Fill The Agenda Short Description!',
+        });
+    }else if (ageLongDes == ""){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please Fill The Agenda Long Description!',
         });
     }else{
 
         data = {
             id: id,
-            ageName: ageName,
-            ageCategory: ageCategory,
-            ageDes: ageDes,
-            ageType: ageType,
+            ageTitle: ageTitle,
+            ageHostName: ageHostName,
+            ageDateTime: ageDateTime,
+            ageLoc: ageLoc,
+            ageShortDes: ageShortDes,
+            ageLongDes: ageLongDes,
         }
 
         $.ajax({
