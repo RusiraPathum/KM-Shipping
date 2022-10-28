@@ -1,17 +1,17 @@
 $(document).ready(function (){
-    loadDocument();
+    loadAgenda();
 });
 
-function loadDocument(){
+function loadAgenda(){
     var id = "show";
 
     $.ajax({
-        url: '../../../php/document.php',
+        url: '../../../php/agenda.php',
         type: 'POST',
         cache: false,
         data: {id:id},
         success:function (data){
-            $('#document_content').html(data);
+            $('#agenda_content').html(data);
         },
         error: function (request, error){
             alert("Request: "+JSON.stringify(request));
@@ -19,56 +19,56 @@ function loadDocument(){
     });
 }
 
-$('#save_document').click(function( ){
+$('#save_agenda').click(function( ){
 
     let data;
 
-    var docName = $('#docName').val();
-    var docCategory = $('#docCategory').val();
-    var docDes = $('#docDes').val();
-    var docType = $('#docType').val();
+    var ageName = $('#ageName').val();
+    var ageCategory = $('#ageCategory').val();
+    var ageDes = $('#ageDes').val();
+    var ageType = $('#ageType').val();
     var id = "insert";
 
-    if (docName == ""){
+    if (ageName == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Name!',
+            text: 'Please Fill The Agenda Name!',
         });
-    }else if (docCategory == ""){
+    }else if (ageCategory == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Category!',
+            text: 'Please Fill The Agenda Category!',
         });
-    }else if (docDes == ""){
+    }else if (ageDes == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Description!',
+            text: 'Please Fill The Agenda Description!',
         });
-    }else if (docType == ""){
+    }else if (ageType == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Type!',
+            text: 'Please Fill The Agenda Type!',
         });
     }else{
 
         data = {
             id: id,
-            docName: docName,
-            docCategory: docCategory,
-            docDes: docDes,
-            docType: docType,
+            ageName: ageName,
+            ageCategory: ageCategory,
+            ageDes: ageDes,
+            ageType: ageType,
         }
 
         $.ajax({
-            url: '../../../php/document.php',
+            url: '../../../php/agenda.php',
             method: 'POST',
             data: data,
             success: function (data) {
@@ -76,12 +76,12 @@ $('#save_document').click(function( ){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Your Document has been saved',
+                        title: 'Your Agenda has been saved',
                         showConfirmButton: false,
                         timer: 2000
                     })
                     $("#exampleModal").modal('hide');
-                    loadDocument();
+                    loadAgenda();
                 }
             }, error: function (request, error) {
                 console.log("Request: " + JSON.stringify(request));
@@ -92,12 +92,12 @@ $('#save_document').click(function( ){
 
 })
 
-function deleteDocument(docId){
+function deleteAgenda(ageId){
 
     var id = "delete";
     var data = {
         id: id,
-        docId: docId
+        ageId: ageId
     };
 
     Swal.fire({
@@ -111,7 +111,7 @@ function deleteDocument(docId){
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '../../../php/document.php',
+                url: '../../../php/agenda.php',
                 method: 'POST',
                 data: data,
                 success: function (response) {
@@ -121,7 +121,7 @@ function deleteDocument(docId){
                             'Your file has been deleted.',
                             'success'
                         )
-                        loadDocument();
+                        loadAgenda();
                     }
 
                 },

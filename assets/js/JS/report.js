@@ -1,17 +1,17 @@
 $(document).ready(function (){
-    loadDocument();
+    loadReport();
 });
 
-function loadDocument(){
+function loadReport(){
     var id = "show";
 
     $.ajax({
-        url: '../../../php/document.php',
+        url: '../../../php/report.php',
         type: 'POST',
         cache: false,
         data: {id:id},
         success:function (data){
-            $('#document_content').html(data);
+            $('#report_content').html(data);
         },
         error: function (request, error){
             alert("Request: "+JSON.stringify(request));
@@ -19,56 +19,65 @@ function loadDocument(){
     });
 }
 
-$('#save_document').click(function( ){
+$('#save_report').click(function( ){
 
     let data;
 
-    var docName = $('#docName').val();
-    var docCategory = $('#docCategory').val();
-    var docDes = $('#docDes').val();
-    var docType = $('#docType').val();
+    var repName = $('#repName').val();
+    var repNum = $('#repNum').val();
+    var repDate = $('#repDate').val();
+    var repType = $('#repType').val();
+    var repDes = $('#repDes').val();
     var id = "insert";
 
-    if (docName == ""){
+    if (repName == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Name!',
+            text: 'Please Fill The Report Name!',
         });
-    }else if (docCategory == ""){
+    }else if (repNum == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Category!',
+            text: 'Please Fill The Report Number!',
         });
-    }else if (docDes == ""){
+    }else if (repDate == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Description!',
+            text: 'Please Select The Report Publish Date!',
         });
-    }else if (docType == ""){
+    }else if (repType == ""){
         Swal.fire({
             position: 'top-end',
             icon: 'error',
             title: 'Oops...',
-            text: 'Please Fill The Document Type!',
+            text: 'Please Fill The Report Type!',
+        });
+    }else if (repDes == ""){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please Fill The Report Description!',
         });
     }else{
 
         data = {
             id: id,
-            docName: docName,
-            docCategory: docCategory,
-            docDes: docDes,
-            docType: docType,
+            repName: repName,
+            repNum: repNum,
+            repDate: repDate,
+            repType: repType,
+            repDes: repDes,
         }
 
         $.ajax({
-            url: '../../../php/document.php',
+            url: '../../../php/report.php',
             method: 'POST',
             data: data,
             success: function (data) {
@@ -76,12 +85,12 @@ $('#save_document').click(function( ){
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Your Document has been saved',
+                        title: 'Your Report has been saved',
                         showConfirmButton: false,
                         timer: 2000
                     })
                     $("#exampleModal").modal('hide');
-                    loadDocument();
+                    loadReport();
                 }
             }, error: function (request, error) {
                 console.log("Request: " + JSON.stringify(request));
@@ -92,12 +101,12 @@ $('#save_document').click(function( ){
 
 })
 
-function deleteDocument(docId){
+function deleteReport(repId){
 
     var id = "delete";
     var data = {
         id: id,
-        docId: docId
+        repId: repId
     };
 
     Swal.fire({
@@ -111,7 +120,7 @@ function deleteDocument(docId){
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: '../../../php/document.php',
+                url: '../../../php/report.php',
                 method: 'POST',
                 data: data,
                 success: function (response) {
@@ -121,7 +130,7 @@ function deleteDocument(docId){
                             'Your file has been deleted.',
                             'success'
                         )
-                        loadDocument();
+                        loadReport();
                     }
 
                 },
